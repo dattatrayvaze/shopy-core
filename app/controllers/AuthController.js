@@ -3,6 +3,12 @@ const bcrypt = require('bcryptjs');
 const validator = require('validator');
 const User = require('../models/User');
 const Session = require('../models/Session');
+const Category = require('../models/category');
+const Product = require('../models/product');
+const Order = require('../models/order');
+
+
+
 
 const message = (req) => {
 	let message = req.flash('error');
@@ -110,6 +116,7 @@ exports.signUp = (req, res, next) => {
 						return user.save();
 					})
 					.then(result => {
+						//res.json({signup:"signup"})
 						return res.redirect('/login');
 					});
 		} else {
@@ -120,6 +127,34 @@ exports.signUp = (req, res, next) => {
 	})
 	.catch(err => console.log(err));
 };
+
+
+exports.isAuthenticated = (req, res, next) => {
+	//variable profile can be anything it is going to come from frontend
+	//req.auth is set by is SignedIn
+	let checker = req.profile && req.auth && req.profile._id == req.auth._id;
+
+	if (!checker) {
+	  return res.status(403).json({
+		err: "ACCESS DENIED",
+
+	  });
+	}
+	next();
+  };
+  
+  exports.isAdmin = (req, res, next) => {
+	
+	if (req.profile.role === 0) {
+	  return res.status(403).json({
+		err: "You are not ADMIN ,Access denied",
+	  });
+	}
+	next();
+  };
+
+
+
 
 exports.forgotPasswordPage = (req, res, next) => {
 	if(res.locals.isAuthenticated){

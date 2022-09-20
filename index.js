@@ -13,8 +13,13 @@ const app = express();
 const csrfProtection = csrf();
 const router = express.Router();
 
+
 //Loading Routes
 const webRoutes = require('./routes/web');
+const productRoutes = require('./routes/product');
+const testRoutes=require('./routes/test')
+const categoryRoutes=require('./routes/category');
+
 const sequelize = require('./config/database');
 const errorController = require('./app/controllers/ErrorController');
 
@@ -55,6 +60,9 @@ app.set('view engine', 'hbs');
 app.set('views', 'views');
 
 app.use(webRoutes);
+app.use(productRoutes);
+app.use(testRoutes);
+app.use(categoryRoutes);
 app.use(errorController.pageNotFound);
 
 sequelize
