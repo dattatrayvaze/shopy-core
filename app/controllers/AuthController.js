@@ -93,7 +93,7 @@ exports.signUpPage = (req, res, next) => {
 };
 
 exports.signUp = (req, res, next) => {
-	console.log("test");
+console.log(req.body.email);
 	User.findOne({
 		where: {
 			email: req.body.email
