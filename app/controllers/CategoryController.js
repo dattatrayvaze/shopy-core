@@ -35,11 +35,11 @@ exports.addCategoryPage = (req, res, next) => {
 
 exports.addCategory=(req,res)=>{
 
+    // console.log("hello")
     let info={
         name:req.body.name,
     }
-    const category= Category.create(info).then(category=>{
-       
+    const category= Category.create(info).then(category=>{    
         //alert('login')
         res.json(category.name  )
         

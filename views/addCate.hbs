@@ -24,7 +24,7 @@
 					
 					
 					<div class="form-group m-0">
-						<button type="button" id="btnSubmit" class="btn btn-primary btn-block">
+						<button type="button" id="addCate" class="btn btn-primary btn-block">
 							Register
 						</button>
 					</div>
@@ -37,3 +37,13 @@
 		</div>
 	</div>
 </div>
+
+<script>
+     $('#addCate').on('click',function(){
+        var form = $('#addCategory');
+        var url = form.attr('action');
+
+        form.submit();
+    })
+
+</script>
