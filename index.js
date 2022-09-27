@@ -17,6 +17,8 @@ const router = express.Router();
 const webRoutes = require('./routes/web');
 const sequelize = require('./config/database');
 const errorController = require('./app/controllers/ErrorController');
+const Productroutes = require('./routes/productroutes');
+
 
 env.config();
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -56,9 +58,9 @@ app.set('views', 'views');
 
 app.use(webRoutes);
 app.use(errorController.pageNotFound);
-
+app.use(Productroutes);
 sequelize
-	//.sync({force : true})
+	.sync({force : true})
 	.sync()
 	.then(() => {
 		app.listen(process.env.PORT);
