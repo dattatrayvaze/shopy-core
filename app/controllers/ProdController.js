@@ -1,5 +1,4 @@
 const Product = require('./app/models/product')
-
 const addProduct = async (req, res) => {
 
     let info = {
@@ -10,7 +9,7 @@ const addProduct = async (req, res) => {
 
     const product = await Product.create(info)
     res.status(200).send(product)
-    console.log(product)
+   //console.log(product)
 
 }
 
@@ -32,20 +31,15 @@ const getOneProduct = async (req, res) => {
 const updateProduct = async (req, res) => {
 
     let id = req.params.id
-
     const product = await Product.update(req.body, { where: { id: id }})
-
     res.status(200).send(product)
    
-
 }
 
 const deleteProduct = async (req, res) => {
 
     let id = req.params.id
-    
     await Product.destroy({ where: { id: id }} )
-
     res.status(200).send('Product is deleted !')
 
 }
@@ -54,7 +48,6 @@ const deleteProduct = async (req, res) => {
 const getFeaturedProduct = async (req, res) => {
 
     const products =  await Product.findAll({ where: { Featured: true }})
-
     res.status(200).send(products)}
 
 
