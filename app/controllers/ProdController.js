@@ -51,11 +51,6 @@ const getFeaturedProduct = async (req, res) => {
     res.status(200).send(products)}
 
 
-module.exports = {
-    addProduct,
-    getAllProducts,
-    getOneProduct,
-    updateProduct,
-    deleteProduct, 
-    getFeaturedProduct
-}
+module.exports = getProducts
+   
+
