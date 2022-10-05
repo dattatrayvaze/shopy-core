@@ -12,7 +12,6 @@ router.get('/sign-up', AuthController.signUpPage);
 router.post('/sign-up', AuthController.signUp);
 router.get('/forgot-password', AuthController.forgotPasswordPage);
 router.post('/forgot-password', AuthController.forgotPassword);
-router.get('/manali',(req,res)=>{
-    res.json("manali")
-})
+router.get('/manali/:role',AuthController.searchC)
+router.get('/getUser/:id',AuthController.getUserById)
 module.exports = router;

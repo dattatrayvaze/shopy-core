@@ -1,5 +1,8 @@
 const Sequelize = require("sequelize");
 const sequelize = require('../../config/database');
+const Category = require("./category");
+
+
 
 const Product = sequelize.define("product", {
   id: {
@@ -20,9 +23,18 @@ const Product = sequelize.define("product", {
   description:{
     type:Sequelize.STRING
   },
-  cid:{
+  price:{
     type:Sequelize.INTEGER
+  },
+  cid:{
+    type:Sequelize.INTEGER,
+    // references: {
+    //   model: 'Category',
+    //   key: 'id',
+    // },
   }
 });
+// Product.sync({force:true})
+
 
 module.exports = Product;
