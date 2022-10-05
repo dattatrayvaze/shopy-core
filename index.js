@@ -17,7 +17,7 @@ const router = express.Router();
 const webRoutes = require('./routes/web');
 const sequelize = require('./config/database');
 const errorController = require('./app/controllers/ErrorController');
-const Productroutes = require('./routes/productroutes');
+const ProductRoutes = require('./routes/productroutes');
 
 
 env.config();
