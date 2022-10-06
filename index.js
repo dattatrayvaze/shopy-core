@@ -58,7 +58,7 @@ app.set('views', 'views');
 
 app.use(webRoutes);
 app.use(errorController.pageNotFound);
-app.use(Productroutes);
+app.use(productroutes);
 sequelize
 	.sync({force : true})
 	.sync()
