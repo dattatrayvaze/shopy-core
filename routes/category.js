@@ -8,13 +8,13 @@ const router = express.Router();
 
 router.get('/categories',getAllCategories);
 router.get('/category/:id',getOneCategory);
-router.get('/addCategory',addCategoryPage);
-router.post('/addCategory',addCategory);
+router.get('/category',addCategoryPage);
+router.post('/category',addCategory);
 router.put('/updateCategory/:id',updateCategory);
 router.delete('/category/:id',deleteCategory)
 
 router.get('/random-category',getRandom)
-router.get('/search/:name',searchCategory)
+router.get('/category/search/:name',searchCategory)
 
 module.exports=router;
 

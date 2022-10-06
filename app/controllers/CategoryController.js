@@ -38,7 +38,7 @@ exports.addCategory = (req, res) => {
   };
   const category = Category.create(info)
     .then((category) => {
-      res.json(category.name);
+      res.json(category);
     })
     .catch((err) => {
       res.json(err.message);
@@ -55,7 +55,7 @@ exports.updateCategory = (req, res) => {
   })
     .then((cate) => {
       if (cate.name !== "") {
-        res.status(400).json("category created succ");
+        res.status(400).json("category updated successfully");
       }
     })
     .catch((err) => {
@@ -75,7 +75,6 @@ exports.deleteCategory = (req, res) => {
     .catch((err) => {
       res.status(400).json(err.message);
     });
-  res.status.json("category deleted");
 };
 
 

@@ -3,10 +3,10 @@ const { addToCart, createOrder, removeFromCart, showCart } = require('../app/con
 const router = express.Router();
 
 
-router.get('/create-order/:id',createOrder)
-router.post('/add-to-cart',addToCart)
-router.delete('/remove-from-cart/:id',removeFromCart)
-router.get('/show-cart/:id',showCart)
+router.get('/order/:id',createOrder)
+router.post('/cart',addToCart)
+router.delete('/cart/:id',removeFromCart)
+router.get('/cart/:id',showCart)
 
 
 

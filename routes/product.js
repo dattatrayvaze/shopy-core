@@ -4,9 +4,9 @@ const router = express.Router();
 
 
 router.post('/product',addProduct)
-router.get('/allProducts',getAllProducts)
+router.get('/products',getAllProducts)
 router.get('/product/:id',getProductById)
-router.get('/productByName/:name',getProductByName)
+router.get('/product/search/:name',getProductByName)
 router.put('/product/:id',updateProduct)
 router.delete('/product/:id',deleteProduct)
 router.get('/products/:name',searchProduct)
