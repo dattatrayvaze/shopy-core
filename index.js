@@ -13,10 +13,15 @@ const app = express();
 const csrfProtection = csrf();
 const router = express.Router();
 
+
+
+
 //Loading Routes
 const webRoutes = require('./routes/web');
 const sequelize = require('./config/database');
 const errorController = require('./app/controllers/ErrorController');
+
+
 
 env.config();
 app.use(bodyParser.urlencoded({ extended: false }));
