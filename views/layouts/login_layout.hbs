@@ -36,6 +36,12 @@
         $(this).parent().removeClass('has-error');
         $('.help-txt').remove();
     });
+    $('#addCate').on('click',function(){
+        var form = $('#addCategory');
+        var url = form.attr('action');
+
+        form.submit();
+    })
 
     $('#btnSubmit').on('click',function(){
         var is_valid = true;

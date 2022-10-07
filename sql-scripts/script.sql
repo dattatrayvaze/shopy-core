@@ -1,1 +1,1 @@
-CREATE SCHEMA `shopydb` ;
+CREATE SCHEMA `shopydb1` ;

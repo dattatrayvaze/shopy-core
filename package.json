@@ -1,12 +1,11 @@
 {
-  "name": "node-express-mysql-boilerplate",
+  "name": "express-mysql-boilerplate",
   "version": "1.0.0",
   "description": "A boilerplate for Node.js web applications with express and MySQL",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js",
-    "postinstall": "cp .env-example .env"
+    "start": "nodemon index.js"
   },
   "author": "Mangesh Ghadigaonkar",
   "license": "ISC",
@@ -14,18 +13,33 @@
     "nodemon": "^2.0.4"
   },
   "dependencies": {
+    "alert": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "connect-session-sequelize": "^7.0.1",
     "cors": "^2.8.5",
+
     "csurf": "^1.11.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-flash": "0.0.2",
     "express-handlebars": "^5.1.0",
+    "express-jwt": "^7.7.5",
     "express-session": "^1.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.1.0",
     "sequelize": "^6.3.4",
+    "uuid": "^9.0.0",
+    "uuidv1": "^1.6.14",
     "validator": "^13.1.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dattatrayvaze/shopy-core.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/dattatrayvaze/shopy-core/issues"
+  },
+  "homepage": "https://github.com/dattatrayvaze/shopy-core#readme"
 }
