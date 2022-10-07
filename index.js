@@ -8,6 +8,7 @@ const bodyParser = require("body-parser");
 const session = require("express-session");
 const expressHbs = require("express-handlebars");
 const SequelizeStore = require("connect-session-sequelize")(session.Store); // initalize sequelize with session store
+const cors = require('cors');
 
 const app = express();
 const csrfProtection = csrf();
@@ -46,10 +47,9 @@ app.use(
       db: sequelize,
       table: "sessions",
     }),
-  })
-);
 
 app.use(csrfProtection);
+app.use(cors({origin: 'http://localhost:3002'}));
 app.use(flash());
 
 app.use((req, res, next) => {
