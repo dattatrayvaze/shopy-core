@@ -16,7 +16,10 @@ const User = sequelize.define(
       allowNull: false,
       primaryKey: true,
     },
-    name: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING,
+      // allowNull: false,
+    },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -27,12 +30,18 @@ const User = sequelize.define(
 
     
     },
-	salt: {
-		type:DataTypes.STRING,
-	},
+   address:{
+    type:DataTypes.STRING,
 
+   },
+   city:{
+    type:DataTypes.STRING
+   },
+   pincode:{
+    type:DataTypes.STRING
+   },
     role: {
-      type: DataTypes.BOOLEAN,
+      type: DataTypes.INTEGER,
       defaultValue: 0,
     },
     resetToken: {

@@ -16,7 +16,7 @@ exports.getUserById=(req,res)=>{
   let user=User.findOne({
     where:{id:id}
   }).then(user=>{
-    user.createOrder({total:45,cartId:4})
+    // user.createOrder({total:45,cartId:4})
     res.json(user)
   })
 
@@ -131,14 +131,6 @@ exports.signUpPage = (req, res, next) => {
 exports.signUp = (req, res, next) => {
 
 
-	// const user = new User(req.body);
-	// // console.log(user.inputPassword)
-	// // user.password=123
-	// // user.password=req.body.password
-	// console.log(user.password)
-	// user.password=User.securePassword(user.password)
-	
-
 	
 	User.findOne({
     where: {
@@ -151,7 +143,7 @@ exports.signUp = (req, res, next) => {
           .hash(req.body.password, 12)
           .then((hashedPassword) => {
             const user = new User({
-              fullName: req.body.name,
+              name: req.body.name,
               email: req.body.email,
               password: hashedPassword,
             });

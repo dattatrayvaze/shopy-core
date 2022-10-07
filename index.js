@@ -21,7 +21,6 @@ const categoryRoutes = require("./routes/category");
 const sellerRoutes = require("./routes/seller");
 const orderRoutes=require("./routes/order");
 
-
 const sequelize = require("./config/database");
 const errorController = require("./app/controllers/ErrorController");
 const Order = require("./app/models/order");
@@ -32,6 +31,9 @@ User.hasMany(Order);
 env.config();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
+app.use(bodyParser.json())
+
+
 
 // required for csurf
 app.use(
@@ -76,7 +78,7 @@ app.use(orderRoutes);
 app.use(errorController.pageNotFound);
 
 sequelize
-//   .sync({ force: true })
+  // .sync({ force: true })
   .sync()
   .then(() => {
 

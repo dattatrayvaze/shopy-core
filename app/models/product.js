@@ -26,12 +26,12 @@ const Product = sequelize.define("product", {
   price:{
     type:Sequelize.INTEGER
   },
-  cid:{
+  userId:{
     type:Sequelize.INTEGER,
-    // references: {
-    //   model: 'Category',
-    //   key: 'id',
-    // },
+    
+  },
+  sellerId:{
+    type:Sequelize.INTEGER
   }
 });
 // Product.sync({force:true})

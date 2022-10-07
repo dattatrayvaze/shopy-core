@@ -7,6 +7,8 @@ exports.addProduct = async (req, res) => {
     description: req.body.description,
     price: req.body.price,
     cid: req.body.cid,
+    userId:req.body.userId,
+    sellerId:req.body.sellerId,
     image: req.body.image,
   };
   const product = await Product.create(info).then((product) => {

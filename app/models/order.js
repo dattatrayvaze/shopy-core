@@ -1,16 +1,6 @@
-
 const { Sequelize, DataTypes } = require("sequelize");
 
-const sequelize = require('../../config/database');
-const Product = require("./product");
-const User = require("./User");
-
-
-
-
-
-
-
+const sequelize = require("../../config/database");
 
 
 const Order = sequelize.define("order", {
@@ -20,24 +10,21 @@ const Order = sequelize.define("order", {
     allowNull: false,
     primaryKey: true,
   },
-  status:{
+  status: {
     type: Sequelize.STRING,
-
   },
-  userId:{
-    type:Sequelize.INTEGER
-    
+  userId: {
+    type: Sequelize.INTEGER,
   },
   total: {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
-  cartId:{
-    type:Sequelize.INTEGER,
-  }
+  cartId: {
+    type: Sequelize.INTEGER,
+  },
 });
 
-// Order.belongsTo(User);
 // Order.sync({force:true})
 
-module.exports =  Order;
+module.exports = Order;

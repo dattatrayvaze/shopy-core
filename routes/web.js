@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const HomeController = require('../app/controllers/HomeController');
 const AuthController = require('../app/controllers/AuthController');
+const isAdmin = require('../app/middlewares/isAdmin');
 
 
 router.get('/', HomeController.homePage);
