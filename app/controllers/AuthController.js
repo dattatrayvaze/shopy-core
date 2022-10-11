@@ -10,18 +10,16 @@ const jwt = require("jsonwebtoken");
 const expressJwt = require("express-jwt");
 const { securePassword } = require("../models/User");
 
-exports.getUserById=(req,res)=>{
-  let id =req.params.id;
+exports.getUserById = (req, res) => {
+  let id = req.params.id;
 
-  let user=User.findOne({
-    where:{id:id}
-  }).then(user=>{
+  let user = User.findOne({
+    where: { id: id },
+  }).then((user) => {
     // user.createOrder({total:45,cartId:4})
-    res.json(user)
-  })
-
-  
-}
+    res.json(user);
+  });
+};
 
 const message = (req) => {
   let message = req.flash("error");
@@ -70,43 +68,43 @@ exports.login = (req, res, next) => {
     return res.redirect("/login");
   }
 
-  
   User.findOne({
-  	where: {
-  		email: req.body.inputEmail
-  	}
-  }).then(user => {
-  	if(user) {
-  		bcrypt
-  			.compare(req.body.inputPassword, user.password)
-  			.then(doMatch => {
-  				if (doMatch) {
-  					req.session.isLoggedIn = true;
-  		            req.session.user = user.dataValues;
-  		            return req.session.save(err => {
-  						console.log(err);
-
-  						res.redirect('/');
-  		            });
-  				}
-  				req.flash('error', 'Invalid email or password.');
-  				req.flash('oldInput',{email: req.body.inputEmail});
-  				return res.redirect('/login');
-  			})
-  			.catch(err => {
-  				console.log(err);
-  				req.flash('error', 'Sorry! Somethig went wrong.');
-  				req.flash('oldInput',{email: req.body.inputEmail});
-  				return res.redirect('/login');
-  			});
-  	} else {
-  		req.flash('error', 'No user found with this email');
-  		req.flash('oldInput',{email: req.body.inputEmail});
-
-  		 return res.redirect('/login');
-  	}
+    where: {
+      email: req.body.inputEmail,
+    },
   })
-  .catch(err => console.log(err));
+    .then((user) => {
+      if (user) {
+        bcrypt
+          .compare(req.body.inputPassword, user.password)
+          .then((doMatch) => {
+            if (doMatch) {
+              req.session.isLoggedIn = true;
+              req.session.user = user.dataValues;
+              return req.session.save((err) => {
+                console.log(err);
+
+                res.redirect("/");
+              });
+            }
+            req.flash("error", "Invalid email or password.");
+            req.flash("oldInput", { email: req.body.inputEmail });
+            return res.redirect("/login");
+          })
+          .catch((err) => {
+            console.log(err);
+            req.flash("error", "Sorry! Somethig went wrong.");
+            req.flash("oldInput", { email: req.body.inputEmail });
+            return res.redirect("/login");
+          });
+      } else {
+        req.flash("error", "No user found with this email");
+        req.flash("oldInput", { email: req.body.inputEmail });
+
+        return res.redirect("/login");
+      }
+    })
+    .catch((err) => console.log(err));
 };
 
 exports.logout = (req, res, next) => {
@@ -129,10 +127,7 @@ exports.signUpPage = (req, res, next) => {
 };
 
 exports.signUp = (req, res, next) => {
-
-
-	
-	User.findOne({
+  User.findOne({
     where: {
       email: req.body.email,
     },
@@ -146,6 +141,9 @@ exports.signUp = (req, res, next) => {
               name: req.body.name,
               email: req.body.email,
               password: hashedPassword,
+              address:req.body.address,
+              city:req.body.city,
+              pincode:req.body.pincode
             });
             return user.save();
           })
@@ -165,20 +163,18 @@ exports.signUp = (req, res, next) => {
     .catch((err) => console.log(err));
 };
 
-
-
 exports.isAuthenticated = (req, res, next) => {
-	//variable profile can be anything it is going to come from frontend
-	//req.auth is set by is SignedIn
-	console.log(req.auth)
-	let checker = req.profile && req.auth && req.profile.id == req.auth.id;
-	if (!checker) {
-	  return res.status(403).json({
-		err: "ACCESS DENIED",
-	  });
-	}
-	next();
-  };
+  //variable profile can be anything it is going to come from frontend
+  //req.auth is set by is SignedIn
+  console.log(req.auth);
+  let checker = req.profile && req.auth && req.profile.id == req.auth.id;
+  if (!checker) {
+    return res.status(403).json({
+      err: "ACCESS DENIED",
+    });
+  }
+  next();
+};
 
 // exports.isAuthenticated = (req, res, next) => {
 //   if (req.session.isLoggedIn === true) {
@@ -188,7 +184,6 @@ exports.isAuthenticated = (req, res, next) => {
 //     return res.redirect("/");
 //   }
 // };
-
 
 exports.isAdmin = (req, res, next) => {
   // let checker = req.profile && req.auth && req.profile.role == 0;

@@ -16,6 +16,9 @@ const Cart = sequelize.define("cart", {
   userId: {
     type: Sequelize.INTEGER,
   },
+  productPrice:{
+    type:Sequelize.INTEGER
+  }
 });
 // Cart.sync({force:true})
 

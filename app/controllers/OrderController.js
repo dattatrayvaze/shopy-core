@@ -4,9 +4,13 @@ const Product = require("../models/product");
 const User = require("../models/User");
 
 exports.addToCart = (req, res) => {
+  let id= req.params.userId;
+  let productId=req.params.productId
+  
   let info = {
-    productId: req.body.productId,
-    userId: req.body.userId,
+    productId:productId,
+    userId: id,
+    productPrice:req.body.productPrice
   };
   const cart = Cart.create(info)
     .then((product) => {
@@ -18,9 +22,9 @@ exports.addToCart = (req, res) => {
 };
 
 exports.removeFromCart = (req, res) => {
-  let id = req.params.id;
+  let productId = req.params.productId;
   let cart = Cart.destroy({
-    where: { id: id },
+    where: { productId: productId },
   })
     .then((cart) => {
       res.status(200).json("cart deleted");
@@ -35,8 +39,24 @@ exports.placeOrder = (req, res) => {
 
   let user = User.findOne({
     where: { id: userId },
-  }).then((user) => {
-    user.createOrder({ total: 45, cartId: 4 }).then((use) => {
+  }).then((user,err) => {
+    let total =0;
+  
+    if(user==null){
+      return res.json("user doesn't exist")
+    }
+
+  Cart.findAll({
+    where:{userId:userId},
+    
+  }).then((cart)=>{
+     cart.forEach(element => {
+      total=total+element.productPrice
+      
+    })
+      
+    const t=total
+    user.createOrder({ total: t,status:"order placed"}).then((user) => {
       let cart = Cart.destroy({
         where: { userId: userId },
       })
@@ -47,18 +67,24 @@ exports.placeOrder = (req, res) => {
           res.status(400).json(err.message);
         });
     });
+  })
+
   });
 };
 
 exports.showCart = (req, res) => {
   let userId = req.params.id;
+  let total=0;
   let cart = Cart.findAll({
     where: { userId: userId },
-    attributes: ["id", "products", "userId"],
+    attributes: ["id","productPrice", "userId"],
   })
     .then((cart) => {
+      cart.forEach(element => {
+        total=total+element.productPrice   
+      })
       res.status(200).json({
-        cart,
+        cart,total
       });
     })
     .catch((err) => {
@@ -87,3 +113,22 @@ exports.getUserById = (req, res) => {
     res.json(user);
   });
 };
+
+
+
+exports.getTotal=(req,res)=>{
+  let id=req.params.id;
+  let total =0;
+  Cart.findAll({
+    where:{userId:id,},
+    
+  }).then((cart)=>{
+     cart.forEach(element => {
+      total=total+element.productPrice
+      
+    })
+    console.log(total)
+    res.json(total)   
+  })
+
+}

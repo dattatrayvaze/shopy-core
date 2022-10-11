@@ -29,9 +29,9 @@ const Cart = require("./app/models/cart");
 User.hasMany(Order);
 
 env.config();
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
-app.use(bodyParser.json())
 
 
 
@@ -66,6 +66,7 @@ app.engine(
     extname: "hbs",
   })
 );
+
 app.set("view engine", "hbs");
 app.set("views", "views");
 
