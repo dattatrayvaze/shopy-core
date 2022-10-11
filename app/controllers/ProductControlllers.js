@@ -1,20 +1,56 @@
 const Product = require("../models/product");
 const { Op } = require("sequelize");
+const multer = require("multer");
+const path = require("path");
 
-exports.addProduct = async (req, res) => {
+
+
+
+exports.addProduct =  (req, res) => {
   let info = {
     name: req.body.name,
     description: req.body.description,
     price: req.body.price,
     cid: req.body.cid,
-    userId:req.body.userId,
-    sellerId:req.body.sellerId,
-    image: req.body.image,
+    userId: req.params.id,
+    sellerId: req.body.sellerId,
+    image: req.file.path,
   };
-  const product = await Product.create(info).then((product) => {
+  const product = Product.create(info).then((product) => {
     res.json(product);
+  }).catch(err=>{
+    res.json(err.message)
   });
 };
+
+
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+      cb(null, 'Images')
+  },
+  filename: (req, file, cb) => {
+      cb(null, Date.now() + path.extname(file.originalname))
+  }
+})
+
+exports.upload = multer({
+  storage: storage,
+  limits: { fileSize: '1000000' },
+  fileFilter: (req, file, cb) => {
+      const fileTypes = /jpeg|jpg|png|gif/
+      const mimeType = fileTypes.test(file.mimetype)  
+      const extname = fileTypes.test(path.extname(file.originalname))
+
+      if(mimeType && extname) {
+          return cb(null, true)
+      }
+      cb('Give proper files formate to upload')
+  }
+}).single('image')
+
+
+
 
 exports.getAllProducts = (req, res) => {
   let products = Product.findAll({
@@ -94,11 +130,13 @@ exports.searchProduct = (req, res) => {
   });
 };
 
-
 //i have to work more on this
-exports.getRandom = (req, res) => {
-  let ran = Math.floor(Math.random() * 10) + 1;
-  let product = Product.findOne({
+exports.getRandom =async (req, res) => {
+  const  c= await Product.count()
+  
+  let ran = Math.floor(Math.random() * c) + 1; 
+  // console.log(ran);
+  let product =  Product.findOne({
     where: { id: ran },
   }).then((product) => {
     res.status(200).json({

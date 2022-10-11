@@ -33,6 +33,7 @@ exports.addCategoryPage = (req, res, next) => {
 };
 
 exports.addCategory = (req, res) => {
+  console.log(req.body)
   let info = {
     name: req.body.name,
   };
@@ -76,7 +77,6 @@ exports.deleteCategory = (req, res) => {
       res.status(400).json(err.message);
     });
 };
-
 
 //i have to work on this
 exports.getRandom = (req, res) => {
