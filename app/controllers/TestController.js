@@ -6,6 +6,8 @@ exports.test = (req, res, next) => {
 };
 
 exports.testPost = (req, res, next) => {
+    console.log("request body = " + req.body);
+    console.log(req.body);
     res.json({"test": "Post request Received"});
 };
 

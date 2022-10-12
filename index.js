@@ -1,7 +1,7 @@
 const path = require('path');
 // load dependencies
 const env = require('dotenv');
-const csrf = require('csurf');
+//const csrf = require('csurf');
 const express = require('express');
 const flash = require('express-flash');
 const bodyParser = require('body-parser');
@@ -11,7 +11,7 @@ const SequelizeStore = require("connect-session-sequelize")(session.Store); // i
 const cors = require('cors');
 
 const app = express();
-const csrfProtection = csrf();
+//const csrfProtection = csrf();
 const router = express.Router();
 
 //Loading Routes
@@ -22,7 +22,8 @@ const errorController = require('./app/controllers/ErrorController');
 env.config();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
-
+// parse application/json
+app.use(bodyParser.json());
 // required for csurf
 app.use(session({
     resave: true,
@@ -35,13 +36,13 @@ app.use(session({
     }),
 }));
 app.use(cors({origin: 'http://localhost:3002'}));
-app.use(csrfProtection);
+//app.use(csrfProtection);
 app.use(cors({origin: 'http://localhost:3002'}));
 app.use(flash());
 
 app.use((req, res, next) => {
 	res.locals.isAuthenticated = req.session.isLoggedIn;
-	res.locals.csrfToken = req.csrfToken();
+	//res.locals.csrfToken = req.csrfToken();
 	next();
 });
 
